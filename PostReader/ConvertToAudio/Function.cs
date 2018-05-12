@@ -82,7 +82,7 @@ namespace ConvertToAudio
 
             // Chunk and Synthesize text into speech.
             var chunkSize = 1000;
-            var textBlocks = text.Chunk(chunkSize).ToArray();
+            var textBlocks = text.Chunk().ToArray();
             var path = System.IO.Path.Combine("/tmp/", postId);
             for(var i = 0; i < textBlocks.Length; i++)
             {
