@@ -5,17 +5,18 @@ namespace ConvertToAudio
 {
     public static class StringExtensions
     {
-        public static IEnumerable<string> Chunk(this string str)
+        public static IEnumerable<string> Chunk(this string str, int estimateChunckSize)
         {
+			var maxChunkSize = estimateChunckSize + 100;
             var copyStr = string.Copy(str);
             var chunks = new List<string>();
-            while (copyStr.Length > 1100)
+			while (copyStr.Length > maxChunkSize)
             {
                 var begin = 0;
-                var end = copyStr.IndexOf(".", 1000) + 1;
+				var end = copyStr.IndexOf(".", estimateChunckSize, StringComparison.Ordinal) + 1;
                 if (end == -1)
                 {
-                    end = copyStr.IndexOf(" ", 1000) + 1;
+					end = copyStr.IndexOf(" ", estimateChunckSize, StringComparison.Ordinal) + 1;
                 }
                 var chunk = copyStr.Substring(begin, end);
                 copyStr = copyStr.Substring(end, copyStr.Length - end);
